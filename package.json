@@ -1,0 +1,17 @@
+{
+  "name": "trello_json_parser",
+  "version": "1.0.0",
+  "description": "Parsing JSON from Trello boards",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dan Seethaler",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "fs": "0.0.2",
+    "request": "^2.58.0"
+  }
+}
