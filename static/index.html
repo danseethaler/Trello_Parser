@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Trello JSON Parser</title>
+    <link rel="stylesheet" href="main.css">
     <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
 </head>
 
@@ -12,21 +13,25 @@
         window.run = function() {
 
             console.log("Calling post code");
-            document.querySelector('#url').value = 'https://trello.com/b/xVGaOESA.json';
+            // document.querySelector('#url').value = 'https://trello.com/b/xVGaOESA.json';
 
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:3000/parse',
                 data: {
-                    trelloURL: document.querySelector('#url').value
+                    trelloBoard: document.querySelector('#url').value
                 }
             });
         };
     </script>
 
-    <input id="url" type="text">
-    <a href="#" onclick="run()">Run</a>
-    <div id="output"></div>
+    <div class="content">
+        <h1>Boards to JSON</h1>
+        <h2>with Trello</h2>
+        <input id="url" type="text">
+        <input type="button" onclick="run()" value="Run">
+        <div id="output"></div>
+    </div>
 
 </body>
 

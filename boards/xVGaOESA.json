@@ -1,0 +1,79 @@
+{
+    "Other": [
+        "Purpose of this board",
+        "PSROLECLASS - Role Classes",
+        "PSROLEDEFN - Role Definition",
+        "PROCESS_MONITOR",
+        "PROCESS_MONITOR_BY_USER",
+        "TASKPROFILE_SETUP",
+        "JOB_DATA_ALL",
+        "TASKPROFILE_LIST",
+        "PS_C_TL_RPT_UNAPPR PS_C_GP_ABS_UNAPPR"
+    ],
+    "SQL": [
+        "TO_DATE(     'January 30, 2015, 02:00 A.M.',     'Month dd, YYYY, HH:MI A.M.',      'NLS_DATE_LANGUAGE = American')",
+        "Show PP End date for any date"
+    ],
+    "Time and Labor": [
+        "REPORTED_TIME_TUESDAY_MORNING",
+        "TL_ERNCD_TBL",
+        "A_TIME_UNION",
+        "BATCH_APPROVED_TIME_REPORT",
+        "PAYABLE_TIME_EARNINGS_DECODED",
+        "PAYABLE_TIME_EMPLOYEE",
+        "PRIORPP_REVERSED_PAYABLE_TIME",
+        "REPORTED_TIME",
+        "UNAPRROVED_REPORTED_TIME",
+        "REPORTED_TIME_W_ABS_DATA",
+        "TIME_REPORTER_DATA",
+        "TLTR_STATUS",
+        "TL_RULES_ACTIVE",
+        "TL_TR_NEEDS_APPROVAL",
+        "TRIGGER_TRACKER",
+        "TL_APP_PEND_VW - This table houses when reported and absence time is approved"
+    ],
+    "Payroll Issue Queries": [
+        {
+            "cardName": "Temp queries are used to solve short term solutions but don't typically need to remain after the issue is resolved."
+        },
+        "PAYABLE_TIME_TO_EARNINGS_LIST"
+    ],
+    "Absence Management": [
+        "ALP_PAID_EMPLOYEE",
+        "ALP_PAID_GROUP",
+        "ALP_PAYOUT_AMOUNT",
+        "ALP_PI_BY_CALENDAR",
+        "AM_PI_BY_EMPLOYEE",
+        "AM_PI_BY_EMPLOYEE_CAL_ID",
+        "REPORTED_ABSENCES",
+        "BATCH_APPROVED_ABS_REPORT",
+        "EMPLOYEE_LEAVE_REPORT",
+        "SLRD_LWP_AM",
+        "LEAVE_ACCRUALS",
+        "LEAVE_ACRRUALS_BY_PP",
+        "LEAVE_REPORT_LIST",
+        "LEAVE_REPORT_LIST_MISSING_ACCR",
+        "LEAVE_REPORT_MISSING_ACCR",
+        "TRIGGER_AM_RETRO_LIST",
+        "AM Tables"
+    ],
+    "Employee Pay": [
+        "CREATE_ADDITIONAL_PAY",
+        "EMPLOYEE_PAY",
+        "EMPLOYEE_PAY_BY_PAY_PERIOD",
+        "PAY_OTHER_EARNS",
+        "PAYCHECK_EMPLOYEE_LIST",
+        "WHO_CREATED_THIS_CHECK",
+        "WHO_CREATED_THIS_PAYLINE"
+    ],
+    "Project Queries": [
+        "I9_DATA_BUNIT",
+        "I9_JOB_DATA_REPORT",
+        "REPORTED_TIME_REPORT_HR",
+        "REPORTED_ABS_REPORT_HR"
+    ],
+    "Scheduled": [
+        "ACTIVE_EMP_NO_TL_DATA",
+        "SEND_TIME_TO_PAYROLL"
+    ]
+}
