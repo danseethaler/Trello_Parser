@@ -13,16 +13,20 @@
     <div class="content">
         <h1>Boards to JSON</h1>
         <h2>with Trello</h2>
-        <input id="url" type="text">
-        <input type="button" onclick="run()" value="Run">
+        <a href="https://trello.com/1/authorize?key=a177d41f6a97186db0f98352a281198c&name=Trello+Parser&expiration=30days&response_type=token">Get Auth Token</a>
+        <input id="token" type="text">
+        <input id="boardID" type="text">
+        <input type="button" id="run" value="Run">
         <div class="checkbox"><input type="checkbox" name="vehicle" id="getOrg"> Get Org File?</div>
         <div class="warning" id="output"></div>
+
+
     </div>
 
     <script>
-        window.run = function() {
+        $('#run').click(function(){
 
-            var url = "http://52.26.57.188/parse?trelloBoard=" + document.querySelector('#url').value
+            var url = location.origin + "/parse?trelloBoard=" + document.querySelector('#boardID').value
 
             if (document.querySelector('#url').value.length === 0) {
                 if ($('#output').text().length === 0) {
@@ -38,11 +42,10 @@
             console.log(url);
             console.log("Calling post code");
 
-            $.ajax({
-                type: 'get',
-                url: url,
-            });
-        };
+            $.get(url,function(response){
+                console.log(response);
+            })
+        )};
 
     </script>
 

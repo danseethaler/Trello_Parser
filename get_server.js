@@ -30,7 +30,8 @@ app.get('/parse', function (req, res) {
 	var boardID = req.query.trelloBoard;
 	var file = boardID + '.json';
 	var path = "boards/" + file;
-	var url = "https://api.trello.com/1/boards/" + boardID + "/lists?cards=open&key=a177d41f6a97186db0f98352a281198c&token=ccb7812a2c92e35cc319ea7f76541834f1d6345e933f253f9c39be7a43d32e81";
+	var token = req.query.token;
+	var url = "https://api.trello.com/1/boards/" + boardID + "/lists?cards=open&key=a177d41f6a97186db0f98352a281198c&token=" + token;
 
 	request(url, function (error, response, trelloBoard) {
 
