@@ -4,7 +4,7 @@
 	"description": "Parsing JSON from Trello boards",
 	"main": "server.js",
 	"scripts": {
-        "start": "node serverGet.js",
+        "start": "sudo node get_server.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Dan Seethaler",
