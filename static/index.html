@@ -5,33 +5,49 @@
     <meta charset="utf-8">
     <title>Trello JSON Parser</title>
     <link rel="stylesheet" href="main.css">
-    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+
 </head>
 
 <body>
-    <script>
-        window.run = function() {
-
-            console.log("Calling post code");
-            // document.querySelector('#url').value = 'https://trello.com/b/xVGaOESA.json';
-
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:3000/parse',
-                data: {
-                    trelloBoard: document.querySelector('#url').value
-                }
-            });
-        };
-    </script>
 
     <div class="content">
         <h1>Boards to JSON</h1>
         <h2>with Trello</h2>
         <input id="url" type="text">
         <input type="button" onclick="run()" value="Run">
-        <div id="output"></div>
+        <div class="checkbox"><input type="checkbox" name="vehicle" id="getOrg"> Get Org File?</div>
+        <div class="warning" id="output"></div>
     </div>
+
+    <script>
+        window.run = function() {
+
+            var url = "http://52.26.57.188/parse?trelloBoard=" + document.querySelector('#url').value
+
+            if (document.querySelector('#url').value.length === 0) {
+                if ($('#output').text().length === 0) {
+                    $('#output').append("Please enter a board ID.")
+                    setTimeout(function(){$('#output').html('')},3000);
+                }
+                return false;
+
+            }else if (document.querySelector("#getOrg").checked) {
+                url += "&getOrg=true"
+            }
+
+            console.log(url);
+            console.log("Calling post code");
+
+            $.ajax({
+                type: 'get',
+                url: url,
+            });
+        };
+
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="jquery-1.11.3.min.j"><\/script>')</script>
 
 </body>
 
