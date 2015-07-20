@@ -8,12 +8,24 @@ var app = express();
 // Serve up static content
 app.use(express.static('static'));
 
+app.get('/boards/:boardID(*)', function (req, res){
+
+	var file = req.params.boardID,
+	path = __dirname + '/boards/' + file;
+
+	res.download(path);
+})
+
 // Listen for post requests on the '/parse' url
 app.get('/parse', function (req, res) {
 
+	// Grab the trelloBoard parameter from the GET request
+	// and initialize local variables
+	var token = req.query.token;
+
 	if (req.query.getOrg) {
 		// Request the JSON file from the URL
-		var url = "https://trello.com/1/members/my/organizations?key=a177d41f6a97186db0f98352a281198c&token=ccb7812a2c92e35cc319ea7f76541834f1d6345e933f253f9c39be7a43d32e81";
+		var url = "https://trello.com/1/members/my/organizations?key=a177d41f6a97186db0f98352a281198c&token=" + token;
 
 		request(url, function (error, response, trelloJSON) {
 
@@ -25,12 +37,9 @@ app.get('/parse', function (req, res) {
 		});
 	}
 
-	// Grab the trelloBoard parameter from the GET request
-	// and initialize local variables
 	var boardID = req.query.trelloBoard;
 	var file = boardID + '.json';
 	var path = "boards/" + file;
-	var token = req.query.token;
 	var url = "https://api.trello.com/1/boards/" + boardID + "/lists?cards=open&key=a177d41f6a97186db0f98352a281198c&token=" + token;
 
 	request(url, function (error, response, trelloBoard) {
@@ -80,17 +89,8 @@ app.get('/parse', function (req, res) {
 		fs.writeFile(path, JSON.stringify(lists, null, 4), function (err) {
 
 			console.log('New file created at ' + __dirname + '/' + path);
+			res.send('New file created at ' + __dirname + '/' + path);
 
-			res.download(__dirname + '/' + path, boardID + '.json', function (err) {
-				if (err) {
-					// Handle error, but keep in mind the response may be partially-sent
-					// so check res.headersSent
-					console.log("Yeah... this errored out.");
-				} else {
-					// decrement a download credit, etc.
-					console.log("File downloaded.");
-				}
-			});
 		});
 	});
 });

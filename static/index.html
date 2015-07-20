@@ -23,12 +23,22 @@
 
     </div>
 
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="jquery-1.11.3.min.j"><\/script>')</script>
+
     <script>
+
+        $(document).ready(function(){
+            $("#token").val("ccb7812a2c92e35cc319ea7f76541834f1d6345e933f253f9c39be7a43d32e81");
+            $("#boardID").val("zsoO337h");
+        })
+
         $('#run').click(function(){
 
-            var url = location.origin + "/parse?trelloBoard=" + document.querySelector('#boardID').value
+            var url = location.origin + "/parse?trelloBoard=" + document.querySelector('#boardID').value + "&token=" + $("#token").val();
 
-            if (document.querySelector('#url').value.length === 0) {
+            if (document.querySelector('#boardID').value.length === 0) {
                 if ($('#output').text().length === 0) {
                     $('#output').append("Please enter a board ID.")
                     setTimeout(function(){$('#output').html('')},3000);
@@ -44,14 +54,13 @@
 
             $.get(url,function(response){
                 console.log(response);
+
+                window.location = "http://localhost/boards/" + $('#boardID').val() + '.json';
+
             })
-        )};
+        });
 
     </script>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="jquery-1.11.3.min.j"><\/script>')</script>
-
 </body>
 
 </html>
