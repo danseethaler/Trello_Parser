@@ -59,7 +59,7 @@
 
             var parameters = {"token":$("#token").val()};
 
-            Trello.boards.get("zsoO337h", parameters, function(response) {
+            Trello.boards.get($("#boardID").val(), parameters, function(response) {
 
                 var token = $("#token").val();
                 var boardName = response.name;
