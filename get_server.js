@@ -40,8 +40,8 @@ app.get('/parse', function (req, res) {
 	var boardID = req.query.trelloBoard;
 	var boardName = req.query.boardName;
 
-	var file = boardName + "_" + boardID + '.json';
-	var path = "boards/" + file;
+	var fileName = boardName + "_" + boardID + '.json';
+	var path = "boards/" + fileName;
 
 	var url = "https://api.trello.com/1/boards/" + boardID + "/lists?cards=open&key=a177d41f6a97186db0f98352a281198c&token=" + token;
 
@@ -97,7 +97,7 @@ app.get('/parse', function (req, res) {
 		fs.writeFile(path, JSON.stringify(lists, null, 4), function (err) {
 
 			console.log('New file created at ' + __dirname + '/' + path);
-			res.send({"fileName": file});
+			res.send({"fileName": fileName});
 
 		});
 	});

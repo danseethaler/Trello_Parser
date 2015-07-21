@@ -63,14 +63,8 @@
                 var boardName = response.name;
                 var url = location.origin + "/parse?trelloBoard=" + document.querySelector('#boardID').value + "&token=" + token + "&boardName=" + boardName;
 
-                console.log(url);
-                console.log("Calling post code");
-
                 // Get request - pull and create the file
                 $.get(url, function(response) {
-
-                    trelloBoard = response;
-                    console.log(response);
 
                     // Request the file for download
                     window.location = "http://localhost/boards/" +  response.fileName;
