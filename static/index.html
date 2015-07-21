@@ -11,55 +11,60 @@
 <body>
 
     <div class="content">
-        <h1>Boards to JSON</h1>
-        <h2>with Trello</h2>
-        <a href="https://trello.com/1/authorize?key=a177d41f6a97186db0f98352a281198c&name=Trello+Parser&expiration=30days&response_type=token">Get Auth Token</a>
-        <input id="token" type="text">
-        <input id="boardID" type="text">
-        <input type="button" id="run" value="Run">
-        <div class="checkbox"><input type="checkbox" name="vehicle" id="getOrg"> Get Org File?</div>
-        <div class="warning" id="output"></div>
+        <h1>Trello to MD</h1>
+        <div class="slice">
+            <a href="https://trello.com/1/authorize?key=a177d41f6a97186db0f98352a281198c&name=Trello+Parser&expiration=30days&response_type=token">Get Auth Token</a>
 
+        </div>
+        <div class="slice">
+            <input id="token" placeholder="Auth Token" type="text">
+
+        </div>
+        <div class="slice">
+            <input id="boardID" placeholder="Board ID" type="text">
+
+        </div>
+
+        <input type="button" id="run" value="Download Board MD">
 
     </div>
 
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="jquery-1.11.3.min.j"><\/script>')</script>
+    <script>
+        window.jQuery || document.write('<script src="jquery-1.11.3.min.j"><\/script>')
+    </script>
 
     <script>
-
-        $(document).ready(function(){
+        $(document).ready(function() {
             $("#token").val("ccb7812a2c92e35cc319ea7f76541834f1d6345e933f253f9c39be7a43d32e81");
             $("#boardID").val("zsoO337h");
         })
 
-        $('#run').click(function(){
+        $('#run').click(function() {
 
             var url = location.origin + "/parse?trelloBoard=" + document.querySelector('#boardID').value + "&token=" + $("#token").val();
 
             if (document.querySelector('#boardID').value.length === 0) {
                 if ($('#output').text().length === 0) {
                     $('#output').append("Please enter a board ID.")
-                    setTimeout(function(){$('#output').html('')},3000);
+                    setTimeout(function() {
+                        $('#output').html('')
+                    }, 3000);
                 }
                 return false;
 
-            }else if (document.querySelector("#getOrg").checked) {
-                url += "&getOrg=true"
             }
 
             console.log(url);
             console.log("Calling post code");
 
-            $.get(url,function(response){
+            $.get(url, function(response) {
                 console.log(response);
 
                 window.location = "http://localhost/boards/" + $('#boardID').val() + '.json';
 
             })
         });
-
     </script>
 </body>
 

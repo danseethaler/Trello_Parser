@@ -1,7 +1,8 @@
 // Setup the required packages
 var express = require('express'),
 	fs = require('fs'),
-	request = require('request');
+	request = require('request'),
+	mkdirp = require('mkdirp');
 
 var app = express();
 
@@ -75,6 +76,14 @@ app.get('/parse', function (req, res) {
 			// with the property name as the list name.
 			lists[trelloBoard[i].name] = cardsList;
 		}
+
+		// Create the boards folder if one doesn't already exist.
+		mkdirp(__dirname + '/boards/', function(err) {
+
+			console.log("Error in mkdirp");
+			console.log(err);
+
+		});
 
 		fs.stat(path, function(err, stats){
 			if (err) {
