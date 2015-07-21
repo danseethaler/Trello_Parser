@@ -40,8 +40,10 @@ app.get('/parse', function (req, res) {
 	var boardID = req.query.trelloBoard;
 	var boardName = req.query.boardName;
 
-	var fileName = boardName + "_" + boardID + '.json';
-	var path = "boards/" + fileName;
+	// Change the filename extension to .json for the JSON format
+	// You'll also need to change the second param in fs.writeFile
+	var fileName = boardName + "_" + boardID + '.md';
+	var path = "boards/" + file;
 
 	var url = "https://api.trello.com/1/boards/" + boardID + "/lists?cards=open&key=a177d41f6a97186db0f98352a281198c&token=" + token;
 
@@ -50,29 +52,36 @@ app.get('/parse', function (req, res) {
 		var trelloBoard = JSON.parse(trelloBoard);
 		var lists = {};
 
+		var md = "#" + boardName + "\r\n";
+
 		// Iterate through lists
 		for (var i = 0; i < trelloBoard.length; i++) {
 
 			// Instantiate cardsList variable as empty array
 			var cardsList = [];
 
+			md += "##" + trelloBoard[i].name + "\r\n"
+
 			// Iterate through cards and add each card name to array
 			for (var t = 0; t < trelloBoard[i].cards.length; t++) {
 
-				// If the card has a description then add it as a property
-				if (trelloBoard[i].cards[t].desc.length > 0) {
+				var cardName = trelloBoard[i].cards[t].name;
+				var cardDesc = trelloBoard[i].cards[t].desc;
 
-					var cardName = trelloBoard[i].cards[t].name;
-					var cardDesc = trelloBoard[i].cards[t].desc;
+				// If the card has a description then add it as a property
+				if (cardDesc.length > 0) {
 
 					var newCard = {}
 					newCard.name = cardName;
 					newCard.description = cardDesc;
 
 					cardsList.push(newCard);
+					md += "- " + cardName + "\r\n";
+					md += "*" + cardDesc + "*\r\n\r\n";
 
 				} else {
-					cardsList.push(trelloBoard[i].cards[t].name);
+					md +=  "- " + cardName + "\r\n\r\n";
+					cardsList.push(cardName);
 				}
 			}
 
@@ -94,7 +103,9 @@ app.get('/parse', function (req, res) {
 
 		// Write the lists json object to a file with the name as the
 		// board name
-		fs.writeFile(path, JSON.stringify(lists, null, 4), function (err) {
+		// fs.writeFile(path, JSON.stringify(lists, null, 4), function (err) {
+
+		fs.writeFile(path, md, function (err) {
 
 			console.log('New file created at ' + __dirname + '/' + path);
 			res.send({"fileName": fileName});
