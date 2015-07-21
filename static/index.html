@@ -40,7 +40,7 @@
         $(document).ready(function() {
             if (location.origin === "http://localhost") {
                 $("#token").val("ccb7812a2c92e35cc319ea7f76541834f1d6345e933f253f9c39be7a43d32e81");
-                $("#boardID").val("zsoO337h");                 
+                $("#boardID").val("zsoO337h");
             }
         })
 
@@ -69,7 +69,7 @@
                 $.get(url, function(response) {
 
                     // Request the file for download
-                    window.location = "http://localhost/boards/" +  response.fileName;
+                    window.location = location.origin + "/boards/" +  response.fileName;
 
                 })
 
