@@ -11,8 +11,7 @@ app.use(express.static('static'));
 
 app.get('/boards/:boardID(*)', function (req, res){
 
-	var file = req.params.boardID,
-	path = __dirname + '/boards/' + file;
+	path = __dirname + '/boards/' + req.params.boardID;
 
 	res.download(path);
 })
@@ -39,14 +38,16 @@ app.get('/parse', function (req, res) {
 	}
 
 	var boardID = req.query.trelloBoard;
-	var file = boardID + '.json';
+	var boardName = req.query.boardName;
+
+	var file = boardName + "_" + boardID + '.json';
 	var path = "boards/" + file;
+
 	var url = "https://api.trello.com/1/boards/" + boardID + "/lists?cards=open&key=a177d41f6a97186db0f98352a281198c&token=" + token;
 
 	request(url, function (error, response, trelloBoard) {
 
 		var trelloBoard = JSON.parse(trelloBoard);
-		var listsCount = trelloBoard.length;
 		var lists = {};
 
 		// Iterate through lists
@@ -64,9 +65,12 @@ app.get('/parse', function (req, res) {
 					var cardName = trelloBoard[i].cards[t].name;
 					var cardDesc = trelloBoard[i].cards[t].desc;
 
-					cardsList.push({
-						cardName: cardDesc
-					});
+					var newCard = {}
+					newCard.name = cardName;
+					newCard.description = cardDesc;
+
+					cardsList.push(newCard);
+
 				} else {
 					cardsList.push(trelloBoard[i].cards[t].name);
 				}
@@ -78,18 +82,13 @@ app.get('/parse', function (req, res) {
 		}
 
 		// Create the boards folder if one doesn't already exist.
-		mkdirp(__dirname + '/boards/', function(err) {
-
-			console.log("Error in mkdirp");
-			console.log(err);
-
-		});
+		mkdirp(__dirname + '/boards/');
 
 		fs.stat(path, function(err, stats){
 			if (err) {
-				console.log("error occured - file doesn't exist?");
+				// File doesn't exist
 			}else {
-				console.log(stats);
+				// File exists
 			}
 		})
 
@@ -98,7 +97,7 @@ app.get('/parse', function (req, res) {
 		fs.writeFile(path, JSON.stringify(lists, null, 4), function (err) {
 
 			console.log('New file created at ' + __dirname + '/' + path);
-			res.send('New file created at ' + __dirname + '/' + path);
+			res.send({"fileName": file});
 
 		});
 	});
