@@ -43,7 +43,7 @@ app.get('/parse', function (req, res) {
 	// Change the filename extension to .json for the JSON format
 	// You'll also need to change the second param in fs.writeFile
 	var fileName = boardName + "_" + boardID + '.md';
-	var path = "boards/" + file;
+	var path = "boards/" + fileName;
 
 	var url = "https://api.trello.com/1/boards/" + boardID + "/lists?cards=open&key=a177d41f6a97186db0f98352a281198c&token=" + token;
 
