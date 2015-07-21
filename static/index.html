@@ -38,8 +38,10 @@
 
     <script>
         $(document).ready(function() {
-            $("#token").val("ccb7812a2c92e35cc319ea7f76541834f1d6345e933f253f9c39be7a43d32e81");
-            $("#boardID").val("zsoO337h");
+            if (location.origin === "http://localhost") {
+                $("#token").val("ccb7812a2c92e35cc319ea7f76541834f1d6345e933f253f9c39be7a43d32e81");
+                $("#boardID").val("zsoO337h");                 
+            }
         })
 
         $('#run').click(function() {
