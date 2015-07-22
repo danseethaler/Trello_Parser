@@ -52,7 +52,7 @@ app.get('/parse', function (req, res) {
 		var trelloBoard = JSON.parse(trelloBoard);
 		var lists = {};
 
-		var md = "#" + boardName + "\r\n";
+		var md = "# " + boardName + "\r\n";
 
 		// Iterate through lists
 		for (var i = 0; i < trelloBoard.length; i++) {
@@ -60,7 +60,7 @@ app.get('/parse', function (req, res) {
 			// Instantiate cardsList variable as empty array
 			var cardsList = [];
 
-			md += "##" + trelloBoard[i].name + "\r\n"
+			md += "## " + trelloBoard[i].name + "\r\n"
 
 			// Iterate through cards and add each card name to array
 			for (var t = 0; t < trelloBoard[i].cards.length; t++) {
@@ -75,9 +75,11 @@ app.get('/parse', function (req, res) {
 					newCard.name = cardName;
 					newCard.description = cardDesc;
 
+					cardDesc.replace("\r\n", "\r\n\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+
 					cardsList.push(newCard);
-					md += "- " + cardName + "\r\n";
-					md += "*" + cardDesc + "*\r\n\r\n";
+					md += "- " + cardName + "\r\n\r\n";
+					md += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + cardDesc + "\r\n\r\n";
 
 				} else {
 					md +=  "- " + cardName + "\r\n\r\n";
